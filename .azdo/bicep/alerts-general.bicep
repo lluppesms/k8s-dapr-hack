@@ -2,7 +2,8 @@
 // Creates a Log Analytics Workspace
 // --------------------------------------------------------------------------------
 param actionGroupName string = 'RecommendedAlertRules-AG-1'
-param actionGroupShortName string = 'recalert1-AG-1'
+@maxLength(12)
+param actionGroupShortName string = 'recalrtAG1'
 
 param alert_Operational_Issues_Name string = 'Operational issues'
 param alert_Daily_Cap_Name string = 'Data ingestion has hit the daily cap'

@@ -1,13 +1,15 @@
 // --------------------------------------------------------------------------------
 // Creates a Log Analytics Workspace
 // --------------------------------------------------------------------------------
-param actionGroupName string = 'RecommendedAlertRules-AG-1'
+param actionGroupName string = 'AlertGroup1'
 @maxLength(12)
-param actionGroupShortName string = 'recalrtAG1'
+param actionGroupShortName string = 'alertgroup1'
 
 param alert_Operational_Issues_Name string = 'Operational issues'
 param alert_Daily_Cap_Name string = 'Data ingestion has hit the daily cap'
 param alert_Exceeding_Limit_Name string = 'Data ingestion is exceeding the ingestion rate limit'
+
+param notificationEmail string = ''
 
 param workspaceName string = ''
 param location string = ''
@@ -15,11 +17,26 @@ param location string = ''
 // --------------------------------------------------------------------------------
 // Variables
 // --------------------------------------------------------------------------------
-var armRole_Owner_Guid = '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
-
 var alert_Operational_Issues_Name_And_Workspace = '${alert_Operational_Issues_Name} - ${workspaceName}'
 var alert_Daily_Cap_Name_And_Workspace = '${alert_Daily_Cap_Name} - ${workspaceName}'
 var alert_Exceeding_Limit_Name_And_Workspace = '${alert_Exceeding_Limit_Name} - ${workspaceName}'
+
+var emailReceivers = (notificationEmail == '') ? [] : [
+  {
+    name: 'emailme_-EmailAction-'
+    emailAddress: notificationEmail
+    useCommonAlertSchema: true
+  }
+]
+var armRole_Owner_Guid = '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
+var armRoleReceivers = [
+  {
+    name: 'ArmRole'
+    roleId: armRole_Owner_Guid
+    useCommonAlertSchema: true
+  }
+]
+
 
 // --------------------------------------------------------------------------------
 // Find resources
@@ -37,14 +54,8 @@ resource actionGroup_resource 'microsoft.insights/actionGroups@2023-01-01' = {
   properties: {
     groupShortName: actionGroupShortName
     enabled: true
-    emailReceivers: []
-    armRoleReceivers: [
-      {
-        name: 'ArmRole'
-        roleId: armRole_Owner_Guid
-        useCommonAlertSchema: true
-      }
-    ]
+    emailReceivers: emailReceivers
+    armRoleReceivers: armRoleReceivers
   }
 }
 
@@ -164,3 +175,30 @@ resource alert_Operational_Issues_resource 'microsoft.insights/scheduledqueryrul
     }
   }
 }
+
+
+// resource actionGroups_testemail_name_resource 'microsoft.insights/actionGroups@2023-01-01' = {
+//   name: actionGroups_testemail_name
+//   location: 'Global'
+//   properties: {
+//     groupShortName: 'Test Email'
+//     enabled: true
+//     emailReceivers: [
+//       {
+//         name: 'emailme_-EmailAction-'
+//         emailAddress: 'lyle.luppes@microsoft.com'
+//         useCommonAlertSchema: false
+//       }
+//     ]
+//     smsReceivers: []
+//     webhookReceivers: []
+//     eventHubReceivers: []
+//     itsmReceivers: []
+//     azureAppPushReceivers: []
+//     automationRunbookReceivers: []
+//     voiceReceivers: []
+//     logicAppReceivers: []
+//     azureFunctionReceivers: []
+//     armRoleReceivers: []
+//   }
+// }

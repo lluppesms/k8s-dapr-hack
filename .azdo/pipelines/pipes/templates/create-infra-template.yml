@@ -37,6 +37,7 @@ jobs:
   - bash: |
       echo "resourceGroupName=$(resourceGroupName)"
       echo "orgName=$(orgName)"
+      echo "notificationEmail=$(notificationEmail)"
       echo "environmentName=$(environmentName)"
       echo "environmentNameLower=$(environmentNameLower)"
       echo "azureServiceConnection=$(azureServiceConnection)"
@@ -64,6 +65,7 @@ jobs:
       overrideParameters: >
         -orgName $(orgName) 
         -envName $(environmentNameLower)
+        -notificationEmail $(notificationEmail)
       action: 'Create Or Update Resource Group'
       deploymentScope: 'Resource Group'
       azureResourceManagerConnection: $(azureServiceConnection)

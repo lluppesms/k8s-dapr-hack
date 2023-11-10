@@ -58,6 +58,7 @@ Create a variable group with these values before running the aca-infra-pipeline.
          acrAdminPassword=TBD
          azureServiceConnection=yourAzureServiceConnectionName 
          dockerRegistryConnectionName=TBD-(yourDockerServiceConnectionName)
+         notificationEmail=youremail@domain.com
 ```
 
 ### 3.2. Create Docker Service Connection

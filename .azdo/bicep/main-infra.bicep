@@ -5,6 +5,7 @@ param orgName string = ''
 param envName string = 'DEMO'
 param runDateTime string = utcNow()
 param location string = resourceGroup().location
+param notificationEmail string = ''
 
 // ------------------------------------------------------------------------------------------------------------------------
 var deploymentSuffix = '-${runDateTime}'
@@ -43,12 +44,13 @@ module logAnalyticsModule 'loganalytics.bicep' = {
   }
 }
 
-module logAnalyticsModuleAlertsModule 'loganalyticsalerts.bicep' = {
-  name: 'alertsGeneral${deploymentSuffix}'
+module logAnalyticsAlertsModule 'loganalyticsalerts.bicep' = {
+  name: 'logAnalyticsAlerts${deploymentSuffix}'
   params: {
     actionGroupName: 'lawBasicAlertsAG1'
     actionGroupShortName: 'lawbasicAG1'
     workspaceName: logAnalyticsModule.outputs.name
+    notificationEmail: notificationEmail
     location: location
   }
 }

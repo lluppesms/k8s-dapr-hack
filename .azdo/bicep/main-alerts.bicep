@@ -20,7 +20,7 @@ module resourceNames 'resourcenames.bicep' = {
 }
 
 // ------------------------------------------------------------------------------------------------------------------------
-module alertsGeneralRegistryModule 'alerts-general.bicep' = {
+module alertsGeneralRegistryModule 'loganalyticsalerts.bicep' = {
   name: 'alertsGeneral${deploymentSuffix}'
   params: {
     workspaceName: resourceNames.outputs.logAnalyticsWorkspaceName

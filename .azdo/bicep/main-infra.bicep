@@ -43,6 +43,16 @@ module logAnalyticsModule 'loganalytics.bicep' = {
   }
 }
 
+module logAnalyticsModuleAlertsModule 'loganalyticsalerts.bicep' = {
+  name: 'alertsGeneral${deploymentSuffix}'
+  params: {
+    actionGroupName: 'lawBasicAlertsAG1'
+    actionGroupShortName: 'lawbasicAG1'
+    workspaceName: logAnalyticsModule.outputs.name
+    location: location
+  }
+}
+
 module serviceBusModule 'servicebus.bicep' = {
   name: 'serviceBus${deploymentSuffix}'
   params: {

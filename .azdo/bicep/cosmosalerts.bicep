@@ -86,7 +86,7 @@ resource cosmos429Alert 'Microsoft.Insights/metricAlerts@2018-03-01' = {
             }
           ]
           operator: 'GreaterThan'
-          timeAggregation: 'Total'
+          timeAggregation: 'Count'
           skipMetricValidation: false
           criterionType: 'StaticThresholdCriterion'
         }

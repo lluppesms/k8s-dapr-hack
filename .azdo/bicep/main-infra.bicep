@@ -103,6 +103,16 @@ module cosmosModule 'cosmosdatabase.bicep' = {
   }
 }
 
+module cosmosAlertsModule 'cosmosalerts.bicep' = {
+  name: 'cosmosAlerts${deploymentSuffix}'
+  params: {
+    actionGroupName: 'CosmosAlertGroup1'
+    actionGroupShortName: 'cosalrtgrp1'
+    notificationEmail: notificationEmail
+    cosmosAccountName: cosmosModule.outputs.name
+  }
+}
+
 // module iotHubModule 'iothub.bicep' = {
 //   name: 'iotHub${deploymentSuffix}'
 //   params: {

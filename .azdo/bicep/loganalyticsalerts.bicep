@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------------
 // Creates a Log Analytics Workspace
+// See: https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/scenarios-monitoring
 // --------------------------------------------------------------------------------
 param actionGroupName string = 'AlertGroup1'
 @maxLength(12)
